@@ -25,7 +25,7 @@ class Asset(metaclass=ABCMeta):
 	presets = {}
 
 	args = []
-	
+
 	async = False
 
 
@@ -65,9 +65,9 @@ class Asset(metaclass=ABCMeta):
 							'required' : False,
 							'default' : 'false',
 							'description' : '''Whether the process happens asynchronously.
-							
+
 							If set to "false", the webapp returns only after conversion has been completed. Recommended for small source files (<2Mb).
-							
+
 							If "true", the application returns immediately after the source file has been received and validated.
 							Process completion is notified in the default JMS channel.
 							'''
@@ -102,7 +102,7 @@ class Asset(metaclass=ABCMeta):
 
 
 
-	## * * * HTTP METHODS * * * 
+	## * * * HTTP METHODS * * *
 
 	def OPTIONS(self):
 		'''Self-documentation.
@@ -121,10 +121,10 @@ class Asset(metaclass=ABCMeta):
 		cherrypy.log('****************************\n')
 
 		self.async = async
-		
+
 		## Check input data.
 		## No datastream provided.
-		if data==None: 
+		if data==None:
 			## No source URL provided.
 			if src==None:
 				raise cherrypy.HTTPError(
@@ -142,7 +142,7 @@ class Asset(metaclass=ABCMeta):
 			self._ds = data.file
 
 		dstream_info = self._validate_ds()
-		
+
 		## If preset value is set, ignore all other operations.
 		if 'preset' in actions.keys():
 			preset = actions['preset']
@@ -163,7 +163,7 @@ class Asset(metaclass=ABCMeta):
 
 
 
-	## * * * PRIVATE METHODS * * * 
+	## * * * PRIVATE METHODS * * *
 
 	@abstractmethod
 	def _validate_ds(self):
@@ -218,6 +218,6 @@ class Asset(metaclass=ABCMeta):
 
 		cherrypy.response.status = 201
 		cherrypy.response.headers['content-type'] = self.default_mimetype # @TODO
-		
+
 		return out
 

@@ -1,7 +1,7 @@
 import cherrypy
 
 from datagrinder.config.host import shell_bin, gmagick_bin, exiftool_bin
-from datagrinder.config.presets import si_presets
+from datagrinder.config.presets import si_presets, si_metadata_presets
 from datagrinder.modules.asset import Asset
 
 
@@ -42,6 +42,11 @@ class StaticImage(Asset):
 		self.gmagick_args += ' -resize ' + size
 
 
+	def _action_resolution(self, res):
+		'''Changes resolution value without resampling the image.'''
+		self.gmagick_args += ' -density ' + res
+
+
 	def _action_crop(self, geom):
 		'''Crop image.'''
 		self.gmagick_args += ' -crop ' + geom
@@ -55,9 +60,10 @@ class StaticImage(Asset):
 	def _action_color_profile(self, prof):
 		'''Set image color profile.
 		
-		@TODO Not currently functioning. The profile will a name referencing an ICC file.
+		@TODO Not currently functioning. The profile will be a name referencing an ICC file.
 		'''
-		self.gmagick_args += ' -profile ' + prof
+		#self.gmagick_args += ' -profile ' + prof
+		pass
 
 
 	def _action_flatten(self, flatten):
@@ -71,9 +77,16 @@ class StaticImage(Asset):
 		self.gmagick_args += ' -quality ' + quality
 
 
-	def _action_metadata(self, set):
-		''' @TODO Use exiftool'''
-		pass
+	def _action_metadata(self, preset):
+		'''Remove or preserve embedded metadata fields according to a preset.'''
+		if preset not in si_metadata_presets:
+			raise ValueError('Preset "{}" does not exist.'.format(preset))
+
+		settings = si_metadata_presets[preset]
+		remove_args = '-' + '= -'.join(settings['remove']) + '= '
+		preserve_args = '--' + ' --'.join(settings['preserve'])
+
+		self.exiftool_args += remove_args + preserve_args
 
 
 
@@ -120,7 +133,6 @@ class StaticImage(Asset):
 				'No actions found.'
 			)
 
-		cherrypy.log('Assigning self.args.')
 		self.args = self.base_args + [cmd]
 		
 		

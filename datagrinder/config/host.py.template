@@ -7,7 +7,7 @@ import sys
 #  Do not use this var in the application. Use app_env (see below)
 _default_app_env='dev'
 
-pidfile = '/var/run/sspad/sspad.pid'  
+pidfile = '/var/run/datagrinder/datagrinder.pid'
 
 ## Webapp host
 listen_addr = '0.0.0.0'
@@ -29,12 +29,6 @@ uidminter_db = {
 	'db': 'uidminter',			# UIDminter database name
 }
 
-datagrinder_rest_api = {
-	'proto': 'http',				# Datagrinder connection protocol
-	'host': 'localhost:8480',		# Datagrinder host name and optional port
-	'root': '/datagrinder/image/',	# Datagrinder root path
-}
-
 lake_rest_api = {
 	'proto': 'http',			# LAKE connection protocol
 	'host': 'localhost:8180',	# LAKE host name and optional port
@@ -52,6 +46,19 @@ tstore_schema_rest_api = {
 	'host': tstore_rest_api['host'],							# Triplestore schema indexer host name and optional port
 	'root': '/openrdf-sesame/repositories/dams-schema-test',	# Triplestore schema indexer path to repository root
 }
+
+msg_broker = {
+	'proto' : 'stomp',
+	'host' : 'coll-msgq-test.artic.edu',
+	'port' : '61613',
+}
+
+shell_bin = '/bin/sh'
+
+gmagick_bin = '/usr/bin/gm'
+
+exiftool_bin = '/usr/bin/vendor_perl/exiftool'
+
 
 
 #################################
