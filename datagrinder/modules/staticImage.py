@@ -83,8 +83,8 @@ class StaticImage(Asset):
 			raise ValueError('Preset "{}" does not exist.'.format(preset))
 
 		settings = si_metadata_presets[preset]
-		remove_args = '-' + '= -'.join(settings['remove']) + '= '
-		preserve_args = '--' + ' --'.join(settings['preserve'])
+		remove_args = '-' + '= -'.join(settings['remove']) + '= ' if settings['remove'] else ''
+		preserve_args = '--' + ' --'.join(settings['preserve']) if settings['preserve'] else ''
 
 		self.exiftool_args += remove_args + preserve_args
 

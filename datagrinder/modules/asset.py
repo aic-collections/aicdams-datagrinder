@@ -112,6 +112,7 @@ class Asset(metaclass=ABCMeta):
 		return self._selfdoc
 
 
+	@cherrypy.config(**{'tools.json_out.on': False})
 	def POST(self, src=None, data=None, async=False, **actions):
 		'''Process a file based on presets or a user-defined list of actions.'''
 
@@ -216,6 +217,7 @@ class Asset(metaclass=ABCMeta):
 		else:
 			out = Engine.process_stream(self.args, self._ds)
 
+		#cherrypy.tree.apps[''].config.update({'/' : {'tools.json_out.on': False}}) # Output binary
 		cherrypy.response.status = 201
 		cherrypy.response.headers['content-type'] = self.default_mimetype # @TODO
 
