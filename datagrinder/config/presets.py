@@ -12,37 +12,37 @@ si_defaults = {
 
 si_settings = {
     "master": {
-        "resize": "4096x4096",
+        "resize": "4096x4096>",
         "quality": 90,
     },
     "int_lg": {
-        "resize": "2048x2048",
+        "resize": "2048x2048>",
     },
     "int_md": {
-        "resize": "512x512",
+        "resize": "512x512>",
     },
     "int_thumb": {
-        "resize": "128x128",
+        "resize": "128x128>",
         "quality": 75,
         "metadata" : "minimal",
     },
     "citi_thumb": {
-        "resize": "96x96",
+        "resize": "96x96>",
         "quality": 75,
         "metadata" : "minimal",
     },
     "web_lg": {
-        "resize": "1024x1024",
+        "resize": "1024x1024>",
         "resolution" : "72x72",
         "metadata": "web",
     },
     "web_md": {
-        "resize": "512x512",
+        "resize": "512x512>",
         "resolution" : "72x72",
         "metadata": "web",
     },
     "web_thumb": {
-        "resize": "128x128",
+        "resize": "128x128>",
         "resolution" : "72x72",
         "quality": 75,
         "metadata" : "minimal",

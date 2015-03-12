@@ -8,7 +8,6 @@ buildOptions = {
     'packages' : ['cherrypy'],
     'excludes' : [],
     'path' : sys.path,
-    'compressed' : True,
 }
 
 import sys
